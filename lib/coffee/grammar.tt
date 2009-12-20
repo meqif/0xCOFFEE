@@ -1,0 +1,37 @@
+grammar Coffee
+
+    rule code
+        addition newline*
+    end
+
+    rule addition
+        multiplication '+' addition /
+        multiplication '-' addition /
+        multiplication
+    end
+
+    rule multiplication
+        primary '*' multiplication /
+        primary '/' multiplication /
+        primary '%' multiplication /
+        primary
+    end
+
+    rule primary
+        '(' addition ')' /
+        number
+    end
+
+    rule number
+        [1-9]+
+    end
+
+    rule space
+      [ \t]*
+    end
+
+    rule newline
+      space ("\r\n"+ / [\r\n]+ / ";") space
+    end
+
+end
