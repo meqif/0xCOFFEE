@@ -1,11 +1,7 @@
 grammar Coffee
 
   rule code
-    expression newline* <Code> {
-      def value
-        expression
-      end
-    }
+    expression newline* <Code>
   end
 
   rule expression
@@ -31,11 +27,7 @@ grammar Coffee
   end
 
   rule number
-    [1-9]+ <Number> {
-      def value
-        text_value.to_i
-      end
-    }
+    [1-9]+ <Number>
   end
 
   rule space

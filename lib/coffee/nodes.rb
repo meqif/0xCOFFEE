@@ -48,7 +48,7 @@ module Coffee
     end
 
     def evaluate
-      value
+      text_value.to_i
     end
   end
 end
