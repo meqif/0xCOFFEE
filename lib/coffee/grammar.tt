@@ -1,7 +1,11 @@
 grammar Coffee
 
   rule code
-    addition newline*
+    expression newline*
+  end
+
+  rule expression
+    addition
   end
 
   rule addition
