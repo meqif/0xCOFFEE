@@ -27,7 +27,7 @@ class Parser < Test::Unit::TestCase
     end
 
     def test_multi_addition
-        assert parser.parse('1+1+1+1+1+1+1+1++1+1+1+1+1+1+1+1+1+1')
+        assert parser.parse('1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1')
     end
 
     def test_addition_fail
