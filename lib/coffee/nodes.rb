@@ -21,7 +21,6 @@ module Coffee
     end
 
     def evaluate
-      puts "CodeNode"
       value.evaluate
     end
   end
@@ -31,7 +30,6 @@ module Coffee
     end
 
     def evaluate
-      puts "ExpressionNode"
       value.evaluate
     end
   end
