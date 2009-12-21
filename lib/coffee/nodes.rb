@@ -39,6 +39,7 @@ module Coffee
     end
 
     def evaluate
+      addition.evaluate + multiplication.evaluate
     end
   end
 
