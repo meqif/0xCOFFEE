@@ -1,7 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 
-task :default => :generate_parser
+task :default => [:generate_parser, :test]
 
 desc "Run unit tests"
 Rake::TestTask.new("test") { |t|
