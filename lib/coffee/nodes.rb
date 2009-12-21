@@ -43,6 +43,15 @@ module Coffee
     end
   end
 
+  class Subtraction < Node
+    def codegen(g)
+    end
+
+    def evaluate
+      multiplication.evaluate - addition.evaluate
+    end
+  end
+
   class Number < Node
     def codegen(g)
       g.new_number(value)
