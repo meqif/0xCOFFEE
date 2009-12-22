@@ -25,6 +25,12 @@ module Coffee
     end
   end
 
+  class Print < Node
+    def evaluate
+      puts expression.evaluate
+    end
+  end
+
   class Expression < Node
     def codegen(g)
     end

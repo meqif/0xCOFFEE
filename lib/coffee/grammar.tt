@@ -5,7 +5,13 @@ grammar Coffee
   end
 
   rule expression
+    builtins /
     addition
+  end
+
+  rule builtins
+    'print' space expression <Print> /
+    'print' '(' expression ')' <Print>
   end
 
   rule addition
