@@ -16,8 +16,8 @@ grammar Coffee
 
   rule multiplication
     primary '*' multiplication <Multiplication> /
-    primary '/' multiplication /
-    primary '%' multiplication /
+    primary '/' multiplication <Division> /
+    primary '%' multiplication <Modulo> /
     primary
   end
 

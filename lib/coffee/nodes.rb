@@ -61,6 +61,18 @@ module Coffee
     end
   end
 
+  class Division < Node
+    def evaluate
+      primary.evaluate / multiplication.evaluate
+    end
+  end
+
+  class Modulo < Node
+    def evaluate
+      primary.evaluate % multiplication.evaluate
+    end
+  end
+
   class Number < Node
     def codegen(g)
       g.new_number(value)
