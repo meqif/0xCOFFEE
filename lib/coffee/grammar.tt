@@ -22,7 +22,7 @@ grammar Coffee
   end
 
   rule primary
-    '(' addition ')' /
+    '(' expression ')' <Code> /
     number
   end
 

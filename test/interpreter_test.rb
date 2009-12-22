@@ -50,4 +50,10 @@ class Interpreter < Test::Unit::TestCase
       root = parser.parse('1+2*2')
       assert_equal(5, root.evaluate)
     end
+
+    def test_priority
+      root = parser.parse('(1+2)*2')
+      assert_equal(6, root.evaluate)
+    end
+
 end
