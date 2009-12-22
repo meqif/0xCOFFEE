@@ -52,6 +52,15 @@ module Coffee
     end
   end
 
+  class Multiplication < Node
+    def codegen(g)
+    end
+
+    def evaluate
+      primary.evaluate * multiplication.evaluate
+    end
+  end
+
   class Number < Node
     def codegen(g)
       g.new_number(value)

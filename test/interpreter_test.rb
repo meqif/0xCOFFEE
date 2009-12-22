@@ -41,4 +41,13 @@ class Interpreter < Test::Unit::TestCase
         assert_nil parser.parse('1+1+1++1')
     end
 
+    def test_multiplication
+      root = parser.parse('2*2')
+      assert_equal(4, root.evaluate)
+    end
+
+    def test_operator_priority
+      root = parser.parse('1+2*2')
+      assert_equal(5, root.evaluate)
+    end
 end

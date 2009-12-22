@@ -15,7 +15,7 @@ grammar Coffee
   end
 
   rule multiplication
-    primary '*' multiplication /
+    primary '*' multiplication <Multiplication> /
     primary '/' multiplication /
     primary '%' multiplication /
     primary
