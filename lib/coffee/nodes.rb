@@ -25,7 +25,7 @@ module Coffee
     end
 
     def to_s
-      "Code(#{value})"
+      "#{value}"
     end
   end
 
