@@ -23,6 +23,10 @@ module Coffee
     def evaluate
       value.evaluate
     end
+
+    def to_s
+      "Code(#{value})"
+    end
   end
 
   class Print < Node
@@ -47,6 +51,10 @@ module Coffee
     def evaluate
       multiplication.evaluate + addition.evaluate
     end
+
+    def to_s
+      "Addition(#{multiplication},#{addition})"
+    end
   end
 
   class Subtraction < Node
@@ -55,6 +63,10 @@ module Coffee
 
     def evaluate
       multiplication.evaluate - addition.evaluate
+    end
+
+    def to_s
+      "Subtraction(#{multiplication},#{addition})"
     end
   end
 
@@ -65,17 +77,29 @@ module Coffee
     def evaluate
       primary.evaluate * multiplication.evaluate
     end
+
+    def to_s
+      "Multiplication(#{primary},#{multiplication})"
+    end
   end
 
   class Division < Node
     def evaluate
       primary.evaluate / multiplication.evaluate
     end
+
+    def to_s
+      "Division(#{primary},#{multiplication})"
+    end
   end
 
   class Modulo < Node
     def evaluate
       primary.evaluate % multiplication.evaluate
+    end
+
+    def to_s
+      "Modulo(#{primary},#{multiplication})"
     end
   end
 
@@ -86,6 +110,10 @@ module Coffee
 
     def evaluate
       text_value.to_i
+    end
+
+    def to_s
+      "Number(#{text_value})"
     end
   end
 end
