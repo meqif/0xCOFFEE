@@ -1,7 +1,7 @@
 grammar Coffee
 
   rule code
-    expression newline* <Code>
+    space expression newline* <Code>
   end
 
   rule expression
@@ -15,20 +15,20 @@ grammar Coffee
   end
 
   rule addition
-    multiplication '+' addition <Addition> /
-    multiplication '-' addition <Subtraction> /
+    multiplication space '+' space addition <Addition> /
+    multiplication space '-' space addition <Subtraction> /
     multiplication
   end
 
   rule multiplication
-    primary '*' multiplication <Multiplication> /
-    primary '/' multiplication <Division> /
-    primary '%' multiplication <Modulo> /
+    primary space '*' space multiplication <Multiplication> /
+    primary space '/' space multiplication <Division> /
+    primary space '%' space multiplication <Modulo> /
     primary
   end
 
   rule primary
-    '(' expression ')' <Code> /
+    '(' space expression space ')' <Code> /
     number
   end
 
