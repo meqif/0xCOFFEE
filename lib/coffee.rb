@@ -2,7 +2,7 @@ require "rubygems"
 require "treetop"
 
 #require "coffee/runtime"
-require "coffee/generator"
+#require "coffee/generator"
 require "coffee/nodes"
 
 if File.file?(File.dirname(__FILE__) + "/coffee/grammar.rb")
