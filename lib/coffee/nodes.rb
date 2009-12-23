@@ -86,7 +86,7 @@ module Coffee
     end
 
     def to_s
-      "Multiplication(#{right},#{right})"
+      "Multiplication(#{left},#{right})"
     end
   end
 
