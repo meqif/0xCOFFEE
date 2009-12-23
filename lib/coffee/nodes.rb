@@ -13,11 +13,9 @@ module Coffee
   Node = Treetop::Runtime::SyntaxNode
 
   class Code < Node
-    def value
-      expression
-    end
-
     def codegen(g)
+      value.codegen(g)
+      g.finish
     end
 
     def evaluate
@@ -25,13 +23,13 @@ module Coffee
     end
 
     def to_s
-      "#{value}"
+      "Code(#{value})"
     end
   end
 
   class Print < Node
     def evaluate
-      puts expression.evaluate
+      puts value.evaluate
     end
   end
 

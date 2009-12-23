@@ -1,12 +1,24 @@
 grammar Coffee
 
   rule code
-    space expression newline* <Code>
+    space statement newline* <Code> {
+      def value
+        statement
+      end
+    }
+  end
+
+  rule statement
+    builtins /
+    expression
   end
 
   rule expression
-    builtins /
-    addition
+    space addition space <Expression> {
+      def value
+        addition
+      end
+    }
   end
 
   rule builtins
@@ -28,7 +40,11 @@ grammar Coffee
   end
 
   rule primary
-    '(' space expression space ')' <Code> /
+    '(' space expression space ')' <Expression> {
+      def value
+        expression
+      end
+    } /
     number
   end
 
