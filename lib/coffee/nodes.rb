@@ -104,12 +104,16 @@ module Coffee
   end
 
   class Number < Node
+    def value
+      text_value.to_i
+    end
+
     def codegen(g)
       g.new_number(value)
     end
 
     def evaluate
-      text_value.to_i
+      value
     end
 
     def to_s
