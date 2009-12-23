@@ -33,6 +33,9 @@ class Interpreter < Test::Unit::TestCase
 
         root = parser.parse('1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1')
         assert_equal(18, root.evaluate)
+
+        root = parser.parse('0 + 0 + 1 + 2 + 3 + 5 + 8 + 13 + 21')
+        assert_equal(53, root.evaluate)
     end
 
     def test_addition_fail
