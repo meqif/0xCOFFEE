@@ -8,23 +8,23 @@ if $h
             ~== 0xCOFFEE ==~
 
              To run a file
-         coffee cappuccino.cof
+         coffee -i cappuccino.cof
 
        To compile to LLVM bytecode
-    coffee -c=delicious.o creamy.cof
+            coffee creamy.cof
 
   EOS
   exit
 end
 
 file = ARGV.first
-abort "Usage: coffee [-hiO] [-c=file.o] file.cof" unless file
+abort "Usage: coffee [-hiO] file.cof" unless file
 
-g = Coffee.compile(File.read(file))
-#g.optimize unless $O
-
-#case
-#when $i: puts g.inspect
-#when $c: g.to_file(TrueClass === $c ? file + ".o" : $c)
-#else     g.run
-#end
+case
+when $i
+  Coffee.interpret(File.read(file))
+else
+  g = Coffee.compile(File.read(file))
+  g.optimize unless $O
+  g.to_file(TrueClass === $c ? file + ".o" : $c)
+end
