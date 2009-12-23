@@ -45,6 +45,10 @@ class Interpreter < Test::Unit::TestCase
     def test_multiplication
       root = parser.parse('2*2')
       assert_equal(4, root.evaluate)
+
+      rootA = parser.parse('5*4*3*2*1')
+      rootB = parser.parse('1*2*3*4*5')
+      assert_equal(rootA.evaluate, rootB.evaluate)
     end
 
     def test_priority
