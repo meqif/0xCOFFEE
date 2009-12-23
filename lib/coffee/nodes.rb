@@ -37,10 +37,15 @@ module Coffee
 
   class Expression < Node
     def codegen(g)
+      value.codegen(g)
     end
 
     def evaluate
       value.evaluate
+    end
+
+    def to_s
+      "#{value}"
     end
   end
 
