@@ -52,11 +52,11 @@ module Coffee
     end
 
     def evaluate
-      multiplication.evaluate + addition.evaluate
+      left.evaluate + right.evaluate
     end
 
     def to_s
-      "Addition(#{multiplication},#{addition})"
+      "Addition(#{left},#{right})"
     end
   end
 
@@ -65,11 +65,11 @@ module Coffee
     end
 
     def evaluate
-      multiplication.evaluate - addition.evaluate
+      left.evaluate - right.evaluate
     end
 
     def to_s
-      "Subtraction(#{multiplication},#{addition})"
+      "Subtraction(#{left},#{right})"
     end
   end
 
@@ -78,31 +78,31 @@ module Coffee
     end
 
     def evaluate
-      primary.evaluate * multiplication.evaluate
+      left.evaluate * right.evaluate
     end
 
     def to_s
-      "Multiplication(#{primary},#{multiplication})"
+      "Multiplication(#{right},#{right})"
     end
   end
 
   class Division < Node
     def evaluate
-      primary.evaluate / multiplication.evaluate
+      left.evaluate / right.evaluate
     end
 
     def to_s
-      "Division(#{primary},#{multiplication})"
+      "Division(#{left},#{right})"
     end
   end
 
   class Modulo < Node
     def evaluate
-      primary.evaluate % multiplication.evaluate
+      left.evaluate % right.evaluate
     end
 
     def to_s
-      "Modulo(#{primary},#{multiplication})"
+      "Modulo(#{left},#{right})"
     end
   end
 

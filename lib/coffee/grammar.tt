@@ -27,15 +27,15 @@ grammar Coffee
   end
 
   rule addition
-    multiplication space '+' space addition <Addition> /
-    multiplication space '-' space addition <Subtraction> /
+    left:multiplication space '+' space right:addition <Addition> /
+    left:multiplication space '-' space right:addition <Subtraction> /
     multiplication
   end
 
   rule multiplication
-    primary space '*' space multiplication <Multiplication> /
-    primary space '/' space multiplication <Division> /
-    primary space '%' space multiplication <Modulo> /
+    left:primary space '*' space right:multiplication <Multiplication> /
+    left:primary space '/' space right:multiplication <Division> /
+    left:primary space '%' space right:multiplication <Modulo> /
     primary
   end
 
