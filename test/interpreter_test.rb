@@ -4,11 +4,20 @@
 # Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 $:.unshift File.dirname(__FILE__) + "/../lib"
-require 'coffee'
+
 require 'test/unit'
+require 'rubygems'
+require 'treetop'
+require 'coffee/nodes'
+
+if File.file?(File.dirname(__FILE__) + "/../lib/coffee/grammar.rb")
+  # Take compiled one
+  require "coffee/grammar"
+else
+  Treetop.load File.dirname(__FILE__) + "/../lib/coffee/grammar.tt"
+end
 
 begin
-  require 'rubygems'
   require 'redgreen'
 rescue 'LoadError'
   puts "WARNING: redgreen not found."
