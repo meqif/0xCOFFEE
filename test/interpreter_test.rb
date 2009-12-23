@@ -30,9 +30,7 @@ class Interpreter < Test::Unit::TestCase
     def test_addition
         root = parser.parse('1+1')
         assert_equal(2, root.evaluate)
-    end
 
-    def test_multi_addition
         root = parser.parse('1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1+1')
         assert_equal(18, root.evaluate)
     end
@@ -46,12 +44,10 @@ class Interpreter < Test::Unit::TestCase
       assert_equal(4, root.evaluate)
     end
 
-    def test_operator_priority
+    def test_priority
       root = parser.parse('1+2*2')
       assert_equal(5, root.evaluate)
-    end
 
-    def test_priority
       root = parser.parse('(1+2)*2')
       assert_equal(6, root.evaluate)
     end
