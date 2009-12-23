@@ -28,6 +28,10 @@ module Coffee
   end
 
   class Print < Node
+    def value
+      expression
+    end
+
     def evaluate
       puts value.evaluate
     end
