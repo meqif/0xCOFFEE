@@ -64,7 +64,8 @@ module Coffee
     end
 
     def to_file(file)
-      @module.write_bitcode(file)
+      #@module.write_bitcode(file)
+      File.open(file, 'w') {|f| f.write(@module.inspect) }
     end
 
     def inspect
