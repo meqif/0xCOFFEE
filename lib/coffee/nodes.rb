@@ -33,6 +33,12 @@ module Coffee
       expression
     end
 
+    def codegen(g)
+      #str = g.new_string("Olá!\n")
+      str = g.new_string("%d\n")
+      g.call("printf", str, value.codegen(g))
+    end
+
     def evaluate
       puts value.evaluate
     end
