@@ -14,6 +14,7 @@ module Coffee
 
   class Code < Node
     def codegen(g)
+      g.preamble
       value.codegen(g)
       g.return(0.llvm)
     end
