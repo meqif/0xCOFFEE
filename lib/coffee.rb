@@ -30,7 +30,7 @@ module Coffee
     parser    = CoffeeParser.new
 
     if node = parser.parse(code)
-      node.compile(generator)
+      node.codegen(generator)
     else
       raise ParserError, parser.failure_reason
     end
