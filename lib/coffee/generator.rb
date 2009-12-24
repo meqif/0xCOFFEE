@@ -50,8 +50,8 @@ module Coffee
       generator.finish
     end
 
-    def finish
-      @entry_block.return(0.llvm(INT))
+    def return(value)
+      @entry_block.return(value)
     end
 
     def optimize

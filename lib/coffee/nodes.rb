@@ -15,7 +15,7 @@ module Coffee
   class Code < Node
     def codegen(g)
       value.codegen(g)
-      g.finish
+      g.return(0.llvm)
     end
 
     def evaluate
