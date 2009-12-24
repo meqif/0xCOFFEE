@@ -7,12 +7,13 @@ module Coffee
 
     PCHAR = Type.pointer(Type::Int8Ty)
     INT   = Type::Int32Ty
+    NATIVE_INT = MACHINE_WORD
 
     def initialize(mod = LLVM::Module.new("coffee"), function=nil)
       @module   = mod
       @locals   = {}
 
-      @function = function || @module.get_or_insert_function("main", Type.function(INT, [INT, Type.pointer(PCHAR)]))
+      @function = function || @module.get_or_insert_function("main", Type.function(MACHINE_WORD, [INT, Type.pointer(PCHAR)]))
       @entry_block = @function.create_block.builder
     end
 
