@@ -9,6 +9,8 @@ grammar Coffee
   end
 
   rule statement
+    'if' space+ condition:expression space+ 'then' space+ trueBody:statement space+ 'end' /
+    'if' space+ condition:expression space+ 'then' space+ trueBody:statement space+ 'else' space+ falseBody:statement space+ 'end' /
     builtins /
     id:identifier space* '=' space* expression <Assign> /
     expression
