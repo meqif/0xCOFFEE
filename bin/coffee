@@ -26,5 +26,5 @@ when $i
 else
   g = Coffee.compile(File.read(file))
   g.optimize unless $O
-  g.to_file(TrueClass === $c ? file + ".o" : $c)
+  g.to_file(file.split('.')[0..-2].join('.') + ".ll")
 end
