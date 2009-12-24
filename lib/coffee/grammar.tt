@@ -49,7 +49,8 @@ grammar Coffee
   end
 
   rule number
-    [0-9]+ <Number>
+    [0-9]+ <Number> /
+    '-' [0-9]+ <Number>
   end
 
   rule space
