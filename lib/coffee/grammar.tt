@@ -1,7 +1,7 @@
 grammar Coffee
 
   rule code
-    space statement newline* <Code> {
+    space* statement newline* <Code> {
       def value
         statement
       end
@@ -14,7 +14,7 @@ grammar Coffee
   end
 
   rule expression
-    space addition space <Expression> {
+    space* addition space* <Expression> {
       def value
         addition
       end
@@ -27,20 +27,20 @@ grammar Coffee
   end
 
   rule addition
-    left:multiplication space '+' space right:addition <Addition> /
-    left:multiplication space '-' space right:addition <Subtraction> /
+    left:multiplication space* '+' space* right:addition <Addition> /
+    left:multiplication space* '-' space* right:addition <Subtraction> /
     multiplication
   end
 
   rule multiplication
-    left:primary space '*' space right:multiplication <Multiplication> /
-    left:primary space '/' space right:multiplication <Division> /
-    left:primary space '%' space right:multiplication <Modulo> /
+    left:primary space* '*' space* right:multiplication <Multiplication> /
+    left:primary space* '/' space* right:multiplication <Division> /
+    left:primary space* '%' space* right:multiplication <Modulo> /
     primary
   end
 
   rule primary
-    '(' space expression space ')' <Expression> {
+    '(' space* expression space* ')' <Expression> {
       def value
         expression
       end
@@ -54,11 +54,11 @@ grammar Coffee
   end
 
   rule space
-    [ \t]*
+    [ \t]
   end
 
   rule newline
-    space ("\r\n"+ / [\r\n]+ / ";") space
+    space* ("\r\n"+ / [\r\n]+ / ";") space*
   end
 
 end
