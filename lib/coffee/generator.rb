@@ -45,10 +45,10 @@ module Coffee
     end
 
     def function(name)
-      func = @module.get_or_insert_function(name, Type.function(INT, []))
+      func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, []))
       generator = Generator.new(@module, func)
       yield generator
-      generator.finish
+      generator.return(0.llvm)
     end
 
     def return(value)
@@ -99,7 +99,7 @@ if __FILE__ == $PROGRAM_NAME
     gf.call("printf", gf.load("x"), gf.load("y"))
   end
   g.call("test")
-  g.finish
+  g.return(0.llvm)
   puts g.inspect
-  g.run.inspect
+  #g.run.inspect
 end
