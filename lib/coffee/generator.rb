@@ -2,6 +2,8 @@ require "rubygems"
 require "llvm"
 
 module Coffee
+  class UnknownOperatorError < RuntimeError; end
+
   class Generator
     include LLVM
 
@@ -22,7 +24,7 @@ module Coffee
       when '+'
         Instruction::Add
       else
-        raise Hell
+        raise UnknownOperatorError, "Unknown Operator: '#{op}'"
       end
 
       @entry_block.bin_op(instruction, a, b)
