@@ -17,6 +17,17 @@ module Coffee
       @entry_block = @function.create_block.builder
     end
 
+    def bin_op(op, a, b)
+      instruction = case op
+      when '+'
+        Instruction::Add
+      else
+        raise Hell
+      end
+
+      @entry_block.bin_op(instruction, a, b)
+    end
+
     def preamble
       define_external_functions
     end
