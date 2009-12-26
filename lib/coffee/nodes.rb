@@ -60,6 +60,7 @@ module Coffee
 
   class Addition < Node
     def codegen(g)
+      g.bin_op('+', left.codegen(g), right.codegen(g))
     end
 
     def evaluate
