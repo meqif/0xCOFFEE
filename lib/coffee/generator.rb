@@ -21,15 +21,15 @@ module Coffee
 
     def bin_op(op, a, b)
       instruction = case op
-      when '+'
+      when :+
         Instruction::Add
-      when '-'
+      when :-
         Instruction::Sub
-      when '*'
+      when :*
         Instruction::Mul
-      when '/'
+      when :/
         Instruction::SDiv
-      when '%'
+      when :%
         Instruction::SRem
       else
         raise UnknownOperatorError, "Unknown Operator: '#{op}'"
