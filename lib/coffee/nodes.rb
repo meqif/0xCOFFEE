@@ -58,73 +58,43 @@ module Coffee
     end
   end
 
-  class Addition < Node
+  class BinOp < Node
+    def op
+      operator.value.to_sym
+    end
+
     def codegen(g)
-      g.bin_op(:+, left.codegen(g), right.codegen(g))
+      g.bin_op(op, left.codegen(g), right.codegen(g))
     end
 
     def evaluate
-      left.evaluate + right.evaluate
+      case op
+      when :+
+        left.evaluate + right.evaluate
+      when :-
+        left.evaluate - right.evaluate
+      when :*
+        left.evaluate * right.evaluate
+      when :/
+        left.evaluate / right.evaluate
+      when :%
+        left.evaluate % right.evaluate
+      end
     end
 
     def to_s
-      "Addition(#{left},#{right})"
-    end
-  end
-
-  class Subtraction < Node
-    def codegen(g)
-      g.bin_op(:-, left.codegen(g), right.codegen(g))
-    end
-
-    def evaluate
-      left.evaluate - right.evaluate
-    end
-
-    def to_s
-      "Subtraction(#{left},#{right})"
-    end
-  end
-
-  class Multiplication < Node
-    def codegen(g)
-      g.bin_op(:*, left.codegen(g), right.codegen(g))
-    end
-
-    def evaluate
-      left.evaluate * right.evaluate
-    end
-
-    def to_s
-      "Multiplication(#{left},#{right})"
-    end
-  end
-
-  class Division < Node
-    def codegen(g)
-      g.bin_op(:/, left.codegen(g), right.codegen(g))
-    end
-
-    def evaluate
-      left.evaluate / right.evaluate
-    end
-
-    def to_s
-      "Division(#{left},#{right})"
-    end
-  end
-
-  class Modulo < Node
-    def codegen(g)
-      g.bin_op(:%, left.codegen(g), right.codegen(g))
-    end
-
-    def evaluate
-      left.evaluate % right.evaluate
-    end
-
-    def to_s
-      "Modulo(#{left},#{right})"
+      case op
+      when :+
+        "Addition(#{left},#{right})"
+      when :-
+        "Subtraction(#{left},#{right})"
+      when :*
+        "Multiplication(#{left},#{right})"
+      when :/
+        "Division(#{left},#{right})"
+      when :%
+        "Modulo(#{left},#{right})"
+      end
     end
   end
 
