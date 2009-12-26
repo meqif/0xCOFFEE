@@ -69,7 +69,6 @@ module Coffee
       func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, []))
       generator = Generator.new(@module, func)
       yield generator
-      generator.return(0.llvm)
     end
 
     def return(value)
@@ -118,6 +117,7 @@ if __FILE__ == $PROGRAM_NAME
     gf.assign("x", str)
     gf.assign("y", num)
     gf.call("printf", gf.load("x"), gf.load("y"))
+    gf.return(0.llvm)
   end
   g.call("test")
   g.return(0.llvm)
