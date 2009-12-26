@@ -27,12 +27,12 @@ grammar Coffee
   end
 
   rule addition
-    left:multiplication space* operator:('+' / '-') space* right:addition <BinOp> /
+    left:multiplication space* op:('+' / '-') space* right:addition <BinOp> /
     multiplication
   end
 
   rule multiplication
-    left:primary space* operator:('*' / '/' / '%') space* right:multiplication <BinOp> /
+    left:primary space* op:('*' / '/' / '%') space* right:multiplication <BinOp> /
     primary
   end
 

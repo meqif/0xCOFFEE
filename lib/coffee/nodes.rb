@@ -59,16 +59,16 @@ module Coffee
   end
 
   class BinOp < Node
-    def op
-      operator.value.to_sym
+    def operator
+      op.value.to_sym
     end
 
     def codegen(g)
-      g.bin_op(op, left.codegen(g), right.codegen(g))
+      g.bin_op(operator, left.codegen(g), right.codegen(g))
     end
 
     def evaluate
-      case op
+      case operator
       when :+
         left.evaluate + right.evaluate
       when :-
@@ -83,7 +83,7 @@ module Coffee
     end
 
     def to_s
-      case op
+      case operator
       when :+
         "Addition(#{left},#{right})"
       when :-
