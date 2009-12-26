@@ -23,6 +23,14 @@ module Coffee
       instruction = case op
       when '+'
         Instruction::Add
+      when '-'
+        Instruction::Sub
+      when '*'
+        Instruction::Mul
+      when '/'
+        Instruction::SDiv
+      when '%'
+        Instruction::SRem
       else
         raise UnknownOperatorError, "Unknown Operator: '#{op}'"
       end

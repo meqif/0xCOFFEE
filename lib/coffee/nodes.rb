@@ -74,6 +74,7 @@ module Coffee
 
   class Subtraction < Node
     def codegen(g)
+      g.bin_op('-', left.codegen(g), right.codegen(g))
     end
 
     def evaluate
@@ -87,6 +88,7 @@ module Coffee
 
   class Multiplication < Node
     def codegen(g)
+      g.bin_op('*', left.codegen(g), right.codegen(g))
     end
 
     def evaluate
@@ -99,6 +101,10 @@ module Coffee
   end
 
   class Division < Node
+    def codegen(g)
+      g.bin_op('/', left.codegen(g), right.codegen(g))
+    end
+
     def evaluate
       left.evaluate / right.evaluate
     end
@@ -109,6 +115,10 @@ module Coffee
   end
 
   class Modulo < Node
+    def codegen(g)
+      g.bin_op('%', left.codegen(g), right.codegen(g))
+    end
+
     def evaluate
       left.evaluate % right.evaluate
     end
