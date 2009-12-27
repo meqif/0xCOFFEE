@@ -7,8 +7,8 @@ module Coffee
   class Generator
     include LLVM
 
-    PCHAR = Type.pointer(Type::Int8Ty)
-    INT   = Type::Int32Ty
+    PCHAR      = Type.pointer(Type::Int8Ty)
+    INT        = Type::Int32Ty
     NATIVE_INT = MACHINE_WORD
 
     def initialize(mod = LLVM::Module.new("coffee"), function=nil)
