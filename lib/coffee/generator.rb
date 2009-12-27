@@ -81,7 +81,7 @@ module Coffee
 
     def run
       ExecutionEngine.get(@module)
-      ExecutionEngine.run_function(@function, 0, 0)
+      ExecutionEngine.run_function_autoconvert(@function, 0, 0)
     end
 
     # Writes generated LLVM-IR to a file.
