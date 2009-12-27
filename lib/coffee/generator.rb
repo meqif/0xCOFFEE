@@ -116,7 +116,7 @@ module Coffee
         @module.external_function("exit", Type.function(INT, [INT]))
       end
 
-      TYPE_MAPPING = { 11 => PCHAR, 7 => INT }
+      TYPE_MAPPING = { 11 => PCHAR, 7 => NATIVE_INT }
       def value_type(value)
         TYPE_MAPPING[value.type.type_id]
       end
