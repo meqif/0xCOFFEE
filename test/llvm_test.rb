@@ -26,18 +26,24 @@ class Compiler < Test::Unit::TestCase
 
   def compile_test(source)
     @generator = Coffee::Generator.new
-    root = parser.parse(source)
-    root.codegen_test(generator)
-    generator.optimize
-    generator.run
+    if root = parser.parse(source)
+      root.codegen_test(generator)
+      generator.optimize
+      generator.run
+    else
+      raise Coffee::ParserError, parser.failure_reason
+    end
   end
 
   def compile(source)
     @generator = Coffee::Generator.new
-    root = parser.parse(source)
-    root.codegen(generator)
-    generator.optimize
-    generator.run
+    if root = parser.parse(source)
+      root.codegen(generator)
+      generator.optimize
+      generator.run
+    else
+      raise Coffee::ParserError, parser.failure_reason
+    end
   end
 
   private :compile, :compile_test
@@ -62,7 +68,7 @@ class Compiler < Test::Unit::TestCase
   end
 
   def test_addition_fail
-    assert_nil parser.parse('1+1+1++1')
+    assert_raise(Coffee::ParserError) { compile_test('1+1+1++1') }
   end
 
   def test_multiplication
