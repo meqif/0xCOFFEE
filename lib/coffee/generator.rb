@@ -15,7 +15,7 @@ module Coffee
       @module   = mod
       @locals   = {}
 
-      @function = function || @module.get_or_insert_function("main", Type.function(MACHINE_WORD, [INT, Type.pointer(PCHAR)]))
+      @function = function || @module.get_or_insert_function("main", Type.function(NATIVE_INT, [NATIVE_INT, Type.pointer(PCHAR)]))
       @entry_block = @function.create_block.builder
     end
 
