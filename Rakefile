@@ -18,6 +18,6 @@ end
 desc "Generate documentation"
 YARD::Rake::YardocTask.new("doc") do |t|
   t.files   = ['lib/coffee/generator.rb', 'lib/coffee/nodes.rb',
-               'lib/coffee.rb']
+               'lib/coffee.rb', 'README.md', 'LICENSE']
   t.options = ['--hide-void-return']
 end
