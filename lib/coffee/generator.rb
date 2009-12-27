@@ -81,7 +81,7 @@ module Coffee
 
     def run
       ExecutionEngine.get(@module)
-      ExecutionEngine.run_function(@function, 0.llvm, 0.llvm)
+      ExecutionEngine.run_function(@function, 0, 0)
     end
 
     # Writes generated LLVM-IR to a file.
@@ -137,5 +137,6 @@ if __FILE__ == $PROGRAM_NAME
   g.call("test")
   g.return(0.llvm)
   puts g.inspect
-  #g.run.inspect
+  puts "-----------------------------"
+  g.run.inspect
 end
