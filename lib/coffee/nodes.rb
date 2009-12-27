@@ -39,12 +39,26 @@ module Coffee
     #
     # @param [Coffee::Generator] g
     # context in which the code is to be generated
-    # @return [Object, nil]
-    #   the result of the code generation, if any
+    # @return [LLVM::ReturnInst]
+    #   the result of the code generation
     def codegen(g)
       g.preamble
       value.codegen(g)
       g.return(0.llvm)
+    end
+
+    # Generates the code equivalent to this node, with the main function
+    # returning the value of the expression. May go down the AST.
+    # +For testing purposes (i.e.: unit tests) only!+
+    #
+    # @param [Coffee::Generator] g
+    # context in which the code is to be generated
+    # @return [LLVM::ReturnInst]
+    #   the result of the code generation
+    def codegen_test(g)
+      g.preamble
+      ret = value.codegen(g)
+      g.return(ret)
     end
 
     # Evaluates the node in native ruby. May go down the AST.
