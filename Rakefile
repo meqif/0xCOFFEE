@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/testtask'
+require 'yard'
 
 task :default => [:generate_parser, :test]
 
@@ -12,4 +13,11 @@ Rake::TestTask.new("test") { |t|
 desc "Generate parser"
 task :generate_parser do
   sh "tt lib/coffee/grammar.tt"
+end
+
+desc "Generate documentation"
+YARD::Rake::YardocTask.new("doc") do |t|
+  t.files   = ['lib/coffee/generator.rb', 'lib/coffee/nodes.rb',
+               'lib/coffee.rb']
+  t.options = ['--hide-void-return']
 end
