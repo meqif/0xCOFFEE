@@ -84,10 +84,22 @@ module Coffee
       ExecutionEngine.run_function(@function, 0.llvm, 0.llvm)
     end
 
+    # Writes generated LLVM-IR to a file.
+    #
+    # @param file
+    #   path to the destination file
+    # @return [Fixnum]
+    #   how many characters were written
     def to_file(file)
       File.open(file, 'w') {|f| f.write(@module.inspect) }
     end
 
+    # Writes generated bitcode to a file.
+    #
+    # @param [String] file
+    #   path to the destination file
+    # @return [Bool]
+    #   whether the write was successful
     def write_bitcode(file)
       @module.write_bitcode(file)
     end
