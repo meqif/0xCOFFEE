@@ -16,10 +16,13 @@ module Coffee
       @locals   = {}
 
       @function = function || @module.get_or_insert_function("main", Type.function(NATIVE_INT, [NATIVE_INT, Type.pointer(PCHAR)]))
+
+      arguments = @function.arguments
       if (function.nil? && arg_names.nil?)
-        @function.arguments[0].name='argc'
-        @function.arguments[1].name='argv'
+        arguments[0].name='argc'
+        arguments[1].name='argv'
       end # TODO: Take care of arg_names
+
       @entry_block = @function.create_block.builder
     end
 
@@ -55,8 +58,8 @@ module Coffee
     end
 
     def call(func, *args)
-      f = @module.get_function(func)
-      @entry_block.call(f, *args)
+      fun = @module.get_function(func)
+      @entry_block.call(fun, *args)
     end
 
     def assign(name, value)

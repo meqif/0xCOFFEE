@@ -27,7 +27,9 @@ module Coffee
     generator = Coffee::Generator.new
     parser    = CoffeeParser.new
 
-    if node = parser.parse(code)
+    node = parser.parse(code)
+
+    if node
       node.codegen(generator)
     else
       raise ParserError, parser.failure_reason
