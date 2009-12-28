@@ -11,11 +11,15 @@ module Coffee
     INT        = Type::Int32Ty
     NATIVE_INT = MACHINE_WORD
 
-    def initialize(mod = LLVM::Module.new("coffee"), function=nil)
+    def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=nil)
       @module   = mod
       @locals   = {}
 
       @function = function || @module.get_or_insert_function("main", Type.function(NATIVE_INT, [NATIVE_INT, Type.pointer(PCHAR)]))
+      if (function.nil? && arg_names.nil?)
+        @function.arguments[0].name='argc'
+        @function.arguments[1].name='argv'
+      end # TODO: Take care of arg_names
       @entry_block = @function.create_block.builder
     end
 
