@@ -15,24 +15,6 @@ end
 module Coffee
   class ParserError < RuntimeError; end
 
-  # Interprets the given source code with the Ruby interpreter.
-  #
-  # @param [String] code
-  #   source code to parse and interpret
-  # @return [Object, nil]
-  #   the result of the evaluation of the program, in case it exists
-  # @raise [ParserError]
-  #   the source code is syntactically invalid
-  def self.interpret(code)
-    parser = CoffeeParser.new
-
-    if node = parser.parse(code)
-      node.evaluate
-    else
-      raise ParserError, parser.failure_reason
-    end
-  end
-
   # Compiles the given source code to its LLVM-IR representation.
   #
   # @param [String] code

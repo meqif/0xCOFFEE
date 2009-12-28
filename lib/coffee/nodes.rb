@@ -6,9 +6,6 @@ module Coffee
 
     def codegen(context)
     end
-
-    def evaluate
-    end
   end
 
   # @abstract A +Node+ represents a generic node of the AST.
@@ -26,12 +23,6 @@ module Coffee
     # @return [Object, nil]
     #   the result of the code generation, if any
     def codegen(context); end
-
-    # Evaluates the node in native ruby. May go down the AST.
-    #
-    # @return [Object, nil]
-    #   the result of the evaluation, if any
-    def evaluate; end
   end
 
   class Code < Node
@@ -59,14 +50,6 @@ module Coffee
       context.preamble
       ret = value.codegen(context)
       context.return(ret)
-    end
-
-    # Evaluates the node in native ruby. May go down the AST.
-    #
-    # @return [Object, nil]
-    #   the result of the evaluation, if any
-    def evaluate
-      value.evaluate
     end
 
     # String representation of this node.
@@ -98,13 +81,6 @@ module Coffee
       context.call("printf", str, value.codegen(context))
     end
 
-    # Evaluates the node in native ruby. May go down the AST.
-    #
-    # @return [void]
-    def evaluate
-      puts value.evaluate
-    end
-
     # String representation of this node.
     #
     # @return [String]
@@ -123,14 +99,6 @@ module Coffee
     #   the result of the code generation, if any
     def codegen(context)
       value.codegen(context)
-    end
-
-    # Evaluates the node in native ruby. May go down the AST.
-    #
-    # @return [Object, nil]
-    #   the result of the evaluation, if any
-    def evaluate
-      value.evaluate
     end
 
     # String representation of this node.
@@ -157,25 +125,6 @@ module Coffee
     #   the result of the code generation, if any
     def codegen(context)
       context.bin_op(operator, left.codegen(context), right.codegen(context))
-    end
-
-    # Evaluates the node in native ruby. May go down the AST.
-    #
-    # @return [Object, nil]
-    #   the result of the evaluation, if any
-    def evaluate
-      case operator
-      when :+
-        left.evaluate + right.evaluate
-      when :-
-        left.evaluate - right.evaluate
-      when :*
-        left.evaluate * right.evaluate
-      when :/
-        left.evaluate / right.evaluate
-      when :%
-        left.evaluate % right.evaluate
-      end
     end
 
     # String representation of this node.
@@ -226,14 +175,6 @@ module Coffee
     #   the result of the code generation
     def codegen(context)
       context.new_number(value)
-    end
-
-    # Evaluates the node in native ruby.
-    #
-    # @return [Fixnum]
-    #   the result of the evaluation, if any
-    def evaluate
-      value
     end
 
     # String representation of this node.
