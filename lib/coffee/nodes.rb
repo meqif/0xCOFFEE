@@ -21,7 +21,7 @@ module Coffee
 
     # Generates the code equivalent to this node. May go down the AST.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [Object, nil]
     #   the result of the code generation, if any
@@ -37,28 +37,28 @@ module Coffee
   class Code < Node
     # Generates the code equivalent to this node. May go down the AST.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [LLVM::ReturnInst]
     #   the result of the code generation
-    def codegen(g)
-      g.preamble
-      value.codegen(g)
-      g.return(0.llvm)
+    def codegen(context)
+      context.preamble
+      value.codegen(context)
+      context.return(0.llvm)
     end
 
     # Generates the code equivalent to this node, with the main function
     # returning the value of the expression. May go down the AST.
     # +For testing purposes (i.e.: unit tests) only!+
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [LLVM::ReturnInst]
     #   the result of the code generation
-    def codegen_test(g)
-      g.preamble
-      ret = value.codegen(g)
-      g.return(ret)
+    def codegen_test(context)
+      context.preamble
+      ret = value.codegen(context)
+      context.return(ret)
     end
 
     # Evaluates the node in native ruby. May go down the AST.
@@ -89,13 +89,13 @@ module Coffee
 
     # Generates the code equivalent to this node. May go down the AST.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [Object, nil]
     #   the result of the code generation, if any
-    def codegen(g)
-      str = g.new_string("%d\n")
-      g.call("printf", str, value.codegen(g))
+    def codegen(context)
+      str = context.new_string("%d\n")
+      context.call("printf", str, value.codegen(context))
     end
 
     # Evaluates the node in native ruby. May go down the AST.
@@ -117,12 +117,12 @@ module Coffee
   class Expression < Node
     # Generates the code equivalent to this node. May go down the AST.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [Object, nil]
     #   the result of the code generation, if any
-    def codegen(g)
-      value.codegen(g)
+    def codegen(context)
+      value.codegen(context)
     end
 
     # Evaluates the node in native ruby. May go down the AST.
@@ -151,12 +151,12 @@ module Coffee
 
     # Generates the code equivalent to this node. May go down the AST.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [Object, nil]
     #   the result of the code generation, if any
-    def codegen(g)
-      g.bin_op(operator, left.codegen(g), right.codegen(g))
+    def codegen(context)
+      context.bin_op(operator, left.codegen(context), right.codegen(context))
     end
 
     # Evaluates the node in native ruby. May go down the AST.
@@ -210,12 +210,12 @@ module Coffee
 
     # Generates the code equivalent to this node.
     #
-    # @param [Coffee::Generator] g
+    # @param [Coffee::Generator] context
     # context in which the code is to be generated
     # @return [LLVM::Value]
     #   the result of the code generation
-    def codegen(g)
-      g.new_number(value)
+    def codegen(context)
+      context.new_number(value)
     end
 
     # Evaluates the node in native ruby.
