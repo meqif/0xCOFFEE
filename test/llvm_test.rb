@@ -86,6 +86,12 @@ class Compiler < Test::Unit::TestCase
 
     result = compile_test('(1+2)*2')
     assert_equal(6, result)
+
+    result = compile_test('((10*9)/8)%7')
+    assert_equal(4, result)
+
+    result = compile_test('10*9/8%7')
+    assert_equal(4, result)
   end
 
 end
