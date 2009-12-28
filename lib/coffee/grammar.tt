@@ -10,6 +10,7 @@ grammar Coffee
 
   rule statement
     builtins /
+    id:identifier space* '=' space* expression <Assign> /
     expression
   end
 

@@ -198,6 +198,16 @@ module Coffee
     end
   end
 
+  class Assign < Node
+    def value
+      expression
+    end
+
+    def codegen(context)
+      context.assign(id, value.codegen(context))
+    end
+  end
+
   # A +Number+ represents a number in the Abstract Syntax Tree.
   class Number < Node
     # Value of the node
