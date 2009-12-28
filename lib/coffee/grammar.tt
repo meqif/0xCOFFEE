@@ -18,7 +18,8 @@ grammar Coffee
       def value
         addition
       end
-    }
+    } /
+    ('λ' / '\\' / 'fun') space+ identifier space+ '->' space+ expression
   end
 
   rule builtins
@@ -48,6 +49,10 @@ grammar Coffee
   rule number
     [0-9]+ <Number> /
     '-' [0-9]+ <Number>
+  end
+
+  rule identifier
+    [a-zA-Z]+
   end
 
   rule space
