@@ -98,6 +98,17 @@ class Compiler < Test::Unit::TestCase
 
     result = compile_test('10*9/8%7')
     assert_equal(4, result)
+
+  def test_string
+    result = parser.parse('((10*8)/4)%15').to_s
+    expected = "Code(Modulo(Division(Multiplication(Number(10),Number(8))," +
+               "Number(4)),Number(15)))"
+    assert_equal(expected, result)
+
+    result = parser.parse('2 + (-3) * 2 - 1').to_s
+    expected = "Code(Addition(Number(2),Subtraction(Multiplication(" +
+               "Number(-3),Number(2)),Number(1))))"
+    assert_equal(expected, result)
   end
 
 end
