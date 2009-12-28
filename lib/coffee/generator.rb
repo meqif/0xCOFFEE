@@ -19,7 +19,7 @@ module Coffee
       @entry_block = @function.create_block.builder
     end
 
-    def bin_op(op, a, b)
+    def bin_op(op, left, right)
       instruction = case op
       when :+
         Instruction::Add
@@ -35,7 +35,7 @@ module Coffee
         raise UnknownOperatorError, "Unknown Operator: '#{op}'"
       end
 
-      @entry_block.bin_op(instruction, a, b)
+      @entry_block.bin_op(instruction, left, right)
     end
 
     def preamble
