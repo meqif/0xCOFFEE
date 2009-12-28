@@ -7,10 +7,10 @@ if $h
 
             ~== 0xCOFFEE ==~
 
-             To run a file
-         coffee -i cappuccino.cof
+            To emit to LLVM-IR
+         coffee -s cappuccino.cof
 
-       To compile to LLVM bytecode
+       To compile to LLVM bitcode
             coffee creamy.cof
 
   EOS
@@ -18,8 +18,13 @@ if $h
 end
 
 file = ARGV.first
-abort "Usage: coffee [-hO] file.cof" unless file
+abort "Usage: coffee [-hOs] file.cof" unless file
 
 g = Coffee.compile(File.read(file))
 g.optimize unless $O
-g.to_file(file.split('.')[0..-2].join('.') + ".ll")
+file_base = file.split('.')[0..-2].join('.')
+if $s
+  g.to_file(file_base + ".ll")
+else
+  g.write_bitcode(file_base + ".bc")
+end
