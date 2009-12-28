@@ -18,13 +18,8 @@ if $h
 end
 
 file = ARGV.first
-abort "Usage: coffee [-hiO] file.cof" unless file
+abort "Usage: coffee [-hO] file.cof" unless file
 
-case
-when $i
-  Coffee.interpret(File.read(file))
-else
-  g = Coffee.compile(File.read(file))
-  g.optimize unless $O
-  g.to_file(file.split('.')[0..-2].join('.') + ".ll")
-end
+g = Coffee.compile(File.read(file))
+g.optimize unless $O
+g.to_file(file.split('.')[0..-2].join('.') + ".ll")
