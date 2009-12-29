@@ -25,25 +25,15 @@ class Compiler < Test::Unit::TestCase
   end
 
   def compile_test(source)
-    @generator = Coffee::Generator.new
-    if root = parser.parse(source)
-      root.codegen_test(generator)
-      generator.optimize
-      generator.run
-    else
-      raise Coffee::ParserError, parser.failure_reason
-    end
+    @generator = Coffee.compile_test(source)
+    generator.optimize
+    generator.run
   end
 
   def compile(source)
-    @generator = Coffee::Generator.new
-    if root = parser.parse(source)
-      root.codegen(generator)
-      generator.optimize
-      generator.run
-    else
-      raise Coffee::ParserError, parser.failure_reason
-    end
+    @generator = Coffee.compile(source)
+    generator.optimize
+    generator.run
   end
 
   private :compile, :compile_test
