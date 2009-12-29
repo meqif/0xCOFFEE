@@ -111,6 +111,9 @@ module Coffee
   end
 
   class BinOp < Node
+    OP_NAME = { :+ => "Addition", :- => "Subtraction", :* => "Multiplication",
+                :/ => "Division", :% => "Modulo" }
+
     # @return [Symbol]
     #   the symbol representation of the operator
     def operator
@@ -132,18 +135,7 @@ module Coffee
     # @return [String]
     #   the string representation of this node
     def to_s
-      case operator
-      when :+
-        "Addition(#{left},#{right})"
-      when :-
-        "Subtraction(#{left},#{right})"
-      when :*
-        "Multiplication(#{left},#{right})"
-      when :/
-        "Division(#{left},#{right})"
-      when :%
-        "Modulo(#{left},#{right})"
-      end
+      "#{OP_NAME[operator]}(#{left},#{right})"
     end
   end
 
