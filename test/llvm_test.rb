@@ -113,4 +113,8 @@ class Compiler < Test::Unit::TestCase
     assert_equal(expected, result)
   end
 
+  def test_kaboom
+    assert_raise(Coffee::NonTerminatedBlockError) { compile('print(1)') }
+  end
+
 end
