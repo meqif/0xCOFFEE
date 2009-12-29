@@ -107,9 +107,9 @@ class Compiler < Test::Unit::TestCase
                "Number(4)),Number(15)))"
     assert_equal(expected, result)
 
-    result = parser.parse('2 + (-3) * 2 - 1').to_s
-    expected = "Code(Addition(Number(2),Subtraction(Multiplication(" +
-               "Number(-3),Number(2)),Number(1))))"
+    result = parser.parse('print(2 + (-3) * 2 - 1)').to_s
+    expected = "Code(Print(Addition(Number(2),Subtraction(Multiplication(" +
+               "Number(-3),Number(2)),Number(1)))))"
     assert_equal(expected, result)
   end
 
