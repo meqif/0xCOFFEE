@@ -52,6 +52,12 @@ class Compiler < Test::Unit::TestCase
 
     result = compile_test('2 + (-3) * 2')
     assert_equal(-4, result)
+
+    result = compile_test('2-1')
+    assert_equal(1, result)
+
+    #result = compile_test('10 - 5 + 1')
+    #assert_equal(6, result)
   end
 
   def test_addition_fail
