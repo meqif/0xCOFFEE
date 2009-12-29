@@ -19,41 +19,24 @@ module Coffee
   #
   # @param [String] code
   #   source code to parse and compile
+  # @param [Bool] test
+  #   whether to enable testing options or not
   # @return [Coffee::Generator]
   #   the LLVM-IR generator for the resulting program
   # @raise [ParserError]
   #   the source code is syntactically invalid
-  def self.compile(code)
+  def self.compile(code, test=false)
     generator = Coffee::Generator.new
     parser    = CoffeeParser.new
 
     node = parser.parse(code)
 
     if node
-      node.codegen(generator)
-    else
-      raise ParserError, parser.failure_reason
-    end
-
-    generator
-  end
-
-  # Compiles the given source code to its LLVM-IR representation, with test options.
-  #
-  # @param [String] code
-  #   source code to parse and compile
-  # @return [Coffee::Generator]
-  #   the LLVM-IR generator for the resulting program
-  # @raise [ParserError]
-  #   the source code is syntactically invalid
-  def self.compile_test(code)
-    generator = Coffee::Generator.new
-    parser    = CoffeeParser.new
-
-    node = parser.parse(code)
-
-    if node
-      node.codegen_test(generator)
+      if not test
+        node.codegen(generator)
+      else
+        node.codegen_test(generator)
+      end
     else
       raise ParserError, parser.failure_reason
     end

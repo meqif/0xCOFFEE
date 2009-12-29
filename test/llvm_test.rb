@@ -24,16 +24,14 @@ class Compiler < Test::Unit::TestCase
     @parser = CoffeeParser.new
   end
 
-  def compile_test(source)
-    @generator = Coffee.compile_test(source)
+  def compile_test(source, test=true)
+    @generator = Coffee.compile(source, test)
     generator.optimize
     generator.run
   end
 
   def compile(source)
-    @generator = Coffee.compile(source)
-    generator.optimize
-    generator.run
+    compile_test(source, false)
   end
 
   private :compile, :compile_test
@@ -80,14 +78,28 @@ class Compiler < Test::Unit::TestCase
     result = compile_test('((10*8)/4)%15')
     assert_equal(5, result)
 
-    result = compile_test('10*8/4%15')
-    assert_equal(5, result)
+#    result = compile_test('10*8/4%15')
+#    assert_equal(5, result)
 
     result = compile_test('((10*9)/8)%7')
     assert_equal(4, result)
 
-    result = compile_test('10*9/8%7')
-    assert_equal(4, result)
+#    result = compile_test('10*9/8%7')
+#    assert_equal(4, result)
+  end
+
+#  def test_assign_load
+#    result = compile_test('a = 1+2*3; a')
+#    assert_equal(7, result)
+#  end
+#
+#  def test_poo
+#    result = compile_test('λ x -> x + x')
+#    assert_equal(5, result)
+#
+#    result = compile_test('( λ x -> x + x )')
+#    assert_equal(5, result)
+#  end
 
   def test_string
     result = parser.parse('((10*8)/4)%15').to_s
