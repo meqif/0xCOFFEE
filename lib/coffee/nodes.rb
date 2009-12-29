@@ -121,8 +121,8 @@ module Coffee
     #
     # @param [Coffee::Generator] context
     # context in which the code is to be generated
-    # @return [Object, nil]
-    #   the result of the code generation, if any
+    # @return [LLVM::BinaryOperator]
+    #   the result of the code generation
     def codegen(context)
       context.bin_op(operator, left.codegen(context), right.codegen(context))
     end
