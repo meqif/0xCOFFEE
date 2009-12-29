@@ -7,12 +7,11 @@ $:.unshift File.dirname(__FILE__) + "/../lib"
 
 require 'test/unit'
 require 'rubygems'
-require 'treetop'
 require 'coffee'
 
 begin
   require 'redgreen'
-rescue 'LoadError'
+rescue LoadError
   puts "WARNING: redgreen not found."
 end
 
