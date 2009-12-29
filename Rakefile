@@ -15,6 +15,11 @@ task :generate_parser do
   sh "tt lib/coffee/grammar.tt"
 end
 
+desc "Measure test coverage"
+task :coverage do
+    sh "rcov -x $HOME/.gem test/*_test.rb"
+end
+
 desc "Generate documentation"
 YARD::Rake::YardocTask.new("doc") do |t|
   t.files   = ['lib/coffee/generator.rb', 'lib/coffee/nodes.rb',
