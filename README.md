@@ -7,7 +7,7 @@ Currently, it does very little, but I have several things planned, like:
 
 - type inference
 - optional type annotation (Haskell- or OCaml-style)
-- metaprogramming (like Ruby's attr\_reader and attr\_accessor)
+- metaprogramming (like Ruby's `attr_reader` and `attr_accessor`)
 - lazy evaluation
 - strings as utf-8, ALWAYS
 - bracket-less, mandatory source code indentation (I know some people hate Python because of this, but I think it enforces readable code)
