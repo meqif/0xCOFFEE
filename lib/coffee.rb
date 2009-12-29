@@ -14,6 +14,7 @@ end
 
 module Coffee
   class ParserError < RuntimeError; end
+  class NonTerminatedBlockError < RuntimeError; end
 
   # Compiles the given source code to its LLVM-IR representation.
   #
@@ -40,6 +41,8 @@ module Coffee
     else
       raise ParserError, parser.failure_reason
     end
+
+    raise NonTerminatedBlockError unless generator.is_terminated?
 
     generator
   end

@@ -91,6 +91,10 @@ module Coffee
       ExecutionEngine.run_function_autoconvert(@function, 0, 0)
     end
 
+    def is_terminated?
+      @function.get_basic_block_list[0].get_instruction_list[0].class == LLVM::ReturnInst
+    end
+
     # Writes generated LLVM-IR to a file.
     #
     # @param file
