@@ -93,6 +93,11 @@ class Compiler < Test::Unit::TestCase
 #    assert_equal(4, result)
   end
 
+  def test_assign
+    result = compile('a = 1+2*3')
+    assert_equal(0, result)
+  end
+
 #  def test_assign_load
 #    result = compile_test('a = 1+2*3; a')
 #    assert_equal(7, result)
@@ -121,6 +126,11 @@ class Compiler < Test::Unit::TestCase
   def test_sequence
     result = compile_test('1+1; 10*3')
     assert_equal(30, result)
+  end
+
+  def test_print
+    result = compile('print(1)')
+    assert_equal(0, result)
   end
 
   def test_kaboom
