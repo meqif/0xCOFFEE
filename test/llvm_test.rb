@@ -118,6 +118,11 @@ class Compiler < Test::Unit::TestCase
     assert_equal(expected, result)
   end
 
+  def test_sequence
+    result = compile_test('1+1; 10*3')
+    assert_equal(30, result)
+  end
+
   def test_kaboom
     assert_raise(Coffee::NonTerminatedBlockError) { compile('print(1)') }
   end
