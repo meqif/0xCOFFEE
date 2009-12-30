@@ -146,7 +146,7 @@ module Coffee
     end
 
     def codegen(context)
-      context.assign(id, value.codegen(context))
+      context.assign(id.value, value.codegen(context))
     end
   end
 
