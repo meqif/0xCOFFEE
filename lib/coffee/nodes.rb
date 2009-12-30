@@ -150,6 +150,16 @@ module Coffee
     end
   end
 
+  class Load < Node
+    def value
+      text_value
+    end
+
+    def codegen(context)
+      context.load(value)
+    end
+  end
+
   # A +Number+ represents a number in the Abstract Syntax Tree.
   class Number < Node
     # Value of the node

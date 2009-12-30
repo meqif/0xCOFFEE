@@ -44,7 +44,8 @@ grammar Coffee
         expression
       end
     } /
-    number
+    number /
+    [a-zA-Z]+ <Load>
   end
 
   rule number
