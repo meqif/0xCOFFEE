@@ -34,7 +34,7 @@ module Coffee
     #   the result of the code generation
     def codegen(context)
       context.preamble
-      value.codegen(context)
+      value.each {|statement| statement.codegen(context) }
       context.return(0.llvm)
     end
 
@@ -48,7 +48,8 @@ module Coffee
     #   the result of the code generation
     def codegen_test(context)
       context.preamble
-      ret = value.codegen(context)
+      ret = nil
+      value.each {|statement| ret = statement.codegen(context) }
       context.return(ret)
     end
 

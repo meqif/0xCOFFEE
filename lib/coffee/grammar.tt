@@ -1,9 +1,9 @@
 grammar Coffee
 
   rule code
-    space* statement newline* <Code> {
+    space* statement space* more_statements:(';' space* statement space*)* newline* <Code> {
       def value
-        statement
+        [statement] + more_statements.elements.map {|s| s.statement }
       end
     }
   end
