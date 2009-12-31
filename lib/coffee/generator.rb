@@ -2,14 +2,15 @@ require "rubygems"
 require "llvm"
 
 module Coffee
-  class UnknownOperatorError < RuntimeError; end
-
   class Generator
     include LLVM
 
     PCHAR      = Type.pointer(Type::Int8Ty)
     INT        = Type::Int32Ty
     NATIVE_INT = MACHINE_WORD
+    OP_INSTRUCTIONS = { :+ => Instruction::Add, :- => Instruction::Sub,
+                        :* => Instruction::Mul, :/ => Instruction::SDiv,
+                        :% => Instruction::SRem }
 
     def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=nil)
       @module   = mod
@@ -27,22 +28,7 @@ module Coffee
     end
 
     def bin_op(op, left, right)
-      instruction = case op
-      when :+
-        Instruction::Add
-      when :-
-        Instruction::Sub
-      when :*
-        Instruction::Mul
-      when :/
-        Instruction::SDiv
-      when :%
-        Instruction::SRem
-      else
-        raise UnknownOperatorError, "Unknown Operator: '#{op}'"
-      end
-
-      @entry_block.bin_op(instruction, left, right)
+      @entry_block.bin_op(OP_INSTRUCTIONS[op], left, right)
     end
 
     def preamble
