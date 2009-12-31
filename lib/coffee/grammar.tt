@@ -45,7 +45,7 @@ grammar Coffee
       end
     } /
     number /
-    [a-zA-Z]+ <Load>
+    [a-zA-Z] [\w]* <Load>
   end
 
   rule number
@@ -54,7 +54,7 @@ grammar Coffee
   end
 
   rule identifier
-    [a-zA-Z]+
+    [a-zA-Z] [\w]*
   end
 
   rule space
