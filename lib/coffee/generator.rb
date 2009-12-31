@@ -133,21 +133,3 @@ module Coffee
       end
   end
 end
-
-if __FILE__ == $PROGRAM_NAME
-  g = Coffee::Generator.new
-  g.preamble
-  g.function("test") do |gf|
-    str = gf.new_string(">> %d\n")
-    num = gf.new_number(7)
-    gf.assign("x", str)
-    gf.assign("y", num)
-    gf.call("printf", gf.load("x"), gf.load("y"))
-    gf.return(0.llvm)
-  end
-  g.call("test")
-  g.return(0.llvm)
-  puts g.inspect
-  puts "-----------------------------"
-  g.run.inspect
-end
