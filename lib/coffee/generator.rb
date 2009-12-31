@@ -50,6 +50,7 @@ module Coffee
 
     def assign(name, value)
       ptr = @entry_block.alloca(value_type(value), 0)
+      ptr.name = name
       @entry_block.store(value, ptr)
       @locals[name] = ptr
     end
