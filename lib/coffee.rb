@@ -1,16 +1,9 @@
 require "rubygems"
 require "treetop"
 
-#require "coffee/runtime"
 require "coffee/generator"
 require "coffee/nodes"
-
-if File.file?(File.dirname(__FILE__) + "/coffee/grammar.rb")
-  # Take compiled one
-  require "coffee/grammar"
-else
-  Treetop.load File.dirname(__FILE__) + "/coffee/grammar.tt"
-end
+require "coffee/grammar"
 
 module Coffee
   class ParserError < RuntimeError; end
