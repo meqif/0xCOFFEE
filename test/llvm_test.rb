@@ -98,10 +98,10 @@ class Compiler < Test::Unit::TestCase
     assert_equal(0, result)
   end
 
-#  def test_assign_load
-#    result = compile_test('a = 1+2*3; a')
-#    assert_equal(7, result)
-#  end
+  def test_load
+    result = compile_test('a = 1+2*3; a')
+    assert_equal(7, result)
+  end
 #
 #  def test_poo
 #    result = compile_test('λ x -> x + x')
