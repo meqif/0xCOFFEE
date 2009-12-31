@@ -58,7 +58,7 @@ module Coffee
     # @return [String]
     #   the string representation of this node
     def to_s
-      "Code(#{value})"
+      "Code(#{value.join(',')})"
     end
   end
 
