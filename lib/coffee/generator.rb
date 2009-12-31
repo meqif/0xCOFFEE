@@ -49,6 +49,7 @@ module Coffee
     end
 
     def assign(name, value)
+      raise RuntimeError if name.nil?
       ptr = @entry_block.alloca(value_type(value), 0)
       ptr.name = name
       @entry_block.store(value, ptr)
