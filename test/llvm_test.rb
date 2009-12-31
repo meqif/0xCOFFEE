@@ -129,8 +129,8 @@ class Compiler < Test::Unit::TestCase
   end
 
   def test_print
-    result = compile('print(1)')
-    assert_equal(0, result)
+    result = compile_test('print(10)')
+    assert_equal(3, result)
   end
 
   def test_kaboom

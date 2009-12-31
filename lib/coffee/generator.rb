@@ -121,7 +121,7 @@ module Coffee
 
     private
       def define_external_functions
-        @module.external_function("printf", Type.function(INT, [PCHAR], true))
+        @module.external_function("printf", Type.function(NATIVE_INT, [PCHAR], true))
         @module.external_function("puts", Type.function(INT, [PCHAR]))
         @module.external_function("read", Type.function(INT, [INT, PCHAR, INT]))
         @module.external_function("exit", Type.function(INT, [INT]))
