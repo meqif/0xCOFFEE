@@ -148,6 +148,10 @@ module Coffee
     def codegen(context)
       context.assign(id.value, value.codegen(context))
     end
+
+    def to_s
+      "Assign(#{id.value},#{value})"
+    end
   end
 
   class Load < Node
@@ -157,6 +161,10 @@ module Coffee
 
     def codegen(context)
       context.load(value)
+    end
+
+    def to_s
+      "Load(#{value})"
     end
   end
 
