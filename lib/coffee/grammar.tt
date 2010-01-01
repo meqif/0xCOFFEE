@@ -29,12 +29,12 @@ grammar Coffee
   end
 
   rule addition
-    left:multiplication space* op:('+' / '-') space* right:addition <BinOp> /
+    left:addition space* op:('+' / '-') space* right:multiplication <BinOp> /
     multiplication
   end
 
   rule multiplication
-    left:primary space* op:('*' / '/' / '%') space* right:multiplication <BinOp> /
+    left:multiplication space* op:('*' / '/' / '%') space* right:primary <BinOp> /
     primary
   end
 
