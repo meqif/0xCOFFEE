@@ -21,12 +21,28 @@ FEATURE LIST
 USAGE
 -----
 
-    $ coffee cappuccino.coffee
+To emit to LLVM-IR
 
+    $ coffee -s cappuccino.cof
 
-CHANGELOG
----------
+To compile to LLVM bitcode
 
+    $ coffee creamy.cof
+
+Then, to compile the generated bitcode to native code
+
+    $ llvm-ld --native creamy.bc -o creamy
+
+And there you go, your source code is compiled to native bitcode!
+
+SEE ALSO
+--------
+
+ * [Caliper & metric\_fu report][calip]
+ * [RDoc.info Documentation][rdoci]
+
+[calip]: http://getcaliper.com/caliper/project?repo=git://github.com/meqif/0xCOFFEE.git
+[rdoci]: http://rdoc.info/projects/meqif/0xCOFFEE
 
 COPYRIGHT
 ---------
