@@ -56,8 +56,8 @@ class Compiler < Test::Unit::TestCase
     result = compile_test('2-1')
     assert_equal(1, result)
 
-    #result = compile_test('10 - 5 + 1')
-    #assert_equal(6, result)
+    result = compile_test('10 - 5 + 1')
+    assert_equal(6, result)
   end
 
   def test_addition_fail
@@ -83,14 +83,14 @@ class Compiler < Test::Unit::TestCase
     result = compile_test('((10*8)/4)%15')
     assert_equal(5, result)
 
-#    result = compile_test('10*8/4%15')
-#    assert_equal(5, result)
+    result = compile_test('10*8/4%15')
+    assert_equal(5, result)
 
     result = compile_test('((10*9)/8)%7')
     assert_equal(4, result)
 
-#    result = compile_test('10*9/8%7')
-#    assert_equal(4, result)
+    result = compile_test('10*9/8%7')
+    assert_equal(4, result)
   end
 
   def test_assign
@@ -111,15 +111,15 @@ class Compiler < Test::Unit::TestCase
 #    assert_equal(5, result)
 #  end
 
-  def test_string
+  def test_string_ast
     result = parser.parse('((10*8)/4)%15').to_s
     expected = "Code(Modulo(Division(Multiplication(Number(10),Number(8))," +
                "Number(4)),Number(15)))"
     assert_equal(expected, result)
 
     result = parser.parse('print(2 + (-3) * 2 - 1)').to_s
-    expected = "Code(Print(Addition(Number(2),Subtraction(Multiplication(" +
-               "Number(-3),Number(2)),Number(1)))))"
+    expected = "Code(Print(Subtraction(Addition(Number(2)," +
+               "Multiplication(Number(-3),Number(2))),Number(1))))"
     assert_equal(expected, result)
   end
 
