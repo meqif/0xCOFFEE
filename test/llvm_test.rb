@@ -101,6 +101,9 @@ class Compiler < Test::Unit::TestCase
   def test_load
     result = compile_test('a = 1+2*3; a')
     assert_equal(7, result)
+
+    result = parser.parse('a = 1; a').to_s
+    assert_equal("Code(Assign(a,Number(1)),Load(a))", result)
   end
 #
 #  def test_poo
