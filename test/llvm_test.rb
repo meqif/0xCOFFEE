@@ -113,14 +113,16 @@ class Compiler < Test::Unit::TestCase
     result = parser.parse('a = 1; a').to_s
     assert_equal("Code(Assign(a,Number(1)),Load(a))", result)
   end
-#
-#  def test_poo
-#    result = compile_test('λ x -> x + x')
-#    assert_equal(5, result)
-#
-#    result = compile_test('( λ x -> x + x )')
-#    assert_equal(5, result)
-#  end
+
+  def test_functions
+    f1 = 'λ x -> x + x'
+    result = compile(f1)
+    assert_equal(0, result)
+
+    f2 = "(#{f1})"
+    result = compile(f2)
+    assert_equal(0, result)
+  end
 
   def test_string_ast
     result = parser.parse('((10*8)/4)%15').to_s
