@@ -203,6 +203,19 @@ module Coffee
     end
   end
 
+  class Function < Node
+    def codegen(context)
+      context.function2([arg.text_value]) do |new_context|
+        ret = body.codegen(new_context)
+        new_context.return(ret)
+      end
+    end
+
+    def to_s
+      "Function(#{arg.text_value};#{body})"
+    end
+  end
+
   # A +Number+ represents a number in the Abstract Syntax Tree.
   class Number < Node
     # Value of the node
