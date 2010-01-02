@@ -19,6 +19,8 @@ module Coffee
   #   the LLVM-IR generator for the resulting program
   # @raise [ParserError]
   #   the source code is syntactically invalid
+  # @raise [NonTerminatedBlockError]
+  #   the main block is not correctly terminated
   def self.compile(code, test=false)
     generator = Coffee::Generator.new
     parser    = CoffeeParser.new
