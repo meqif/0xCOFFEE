@@ -17,14 +17,22 @@ module Coffee
       @locals   = {}
 
       @function = function || @module.get_or_insert_function("main", Type.function(NATIVE_INT, [NATIVE_INT, Type.pointer(PCHAR)]))
+      @entry_block = @function.create_block.builder
 
       arguments = @function.arguments
+
       if (function.nil? && arg_names.nil?)
         arguments[0].name='argc'
         arguments[1].name='argv'
-      end # TODO: Take care of arg_names
+      elsif not (function.nil? or arg_names.nil?)
+        count = 0
+        arg_names.each do |arg_name|
+          arguments[count].name = arg_name
+          assign(arg_name, arguments[count])
+          count += 1
+        end
+      end
 
-      @entry_block = @function.create_block.builder
     end
 
     def bin_op(op, left, right)
