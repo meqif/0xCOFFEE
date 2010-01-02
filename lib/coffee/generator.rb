@@ -74,6 +74,7 @@ module Coffee
       func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, []))
       generator = Generator.new(@module, func)
       yield generator
+      func
     end
 
     def function2(args=[])
@@ -81,6 +82,7 @@ module Coffee
       @@anonymous_functions += 1
       generator = Generator.new(@module, func, args)
       yield generator
+      func
     end
 
     def return(value)
