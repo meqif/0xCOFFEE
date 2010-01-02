@@ -67,6 +67,7 @@ module Coffee
     end
 
     def return(value)
+      raise RuntimeError unless value.type.type_id == @function.return_type.type_id
       @entry_block.return(value)
     end
 
