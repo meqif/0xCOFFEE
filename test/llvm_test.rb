@@ -19,8 +19,12 @@ class Compiler < Test::Unit::TestCase
 
   attr_reader :parser, :generator
 
-  def setup
-    @parser = CoffeeParser.new
+  def stfu
+    old_stdout = STDOUT.clone
+    STDOUT.reopen('/dev/null', 'w')
+    yield
+  ensure
+    STDOUT.reopen(old_stdout)
   end
 
   def compile_test(source, test=true)
@@ -33,7 +37,11 @@ class Compiler < Test::Unit::TestCase
     compile_test(source, false)
   end
 
-  private :compile, :compile_test
+  private :compile, :compile_test, :stfu
+
+  def setup
+    @parser = CoffeeParser.new
+  end
 
   def test_identity
     result = compile_test('1')
@@ -132,7 +140,8 @@ class Compiler < Test::Unit::TestCase
   end
 
   def test_print
-    result = compile_test('print(10)')
+    result = nil
+    stfu { result = compile_test('print(10)') }
     assert_equal(3, result)
   end
 
