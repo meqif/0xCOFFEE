@@ -25,6 +25,7 @@ module Coffee
     def codegen(context); end
   end
 
+  # Represents the root node of the AST.
   class Code < Node
     # Generates the code equivalent to this node. May go down the AST.
     #
@@ -62,6 +63,7 @@ module Coffee
     end
   end
 
+  # Represents a print node in the AST.
   class Print < Node
     # Value of the node
     #
@@ -91,6 +93,7 @@ module Coffee
     end
   end
 
+  # Represents an Expression node in the AST.
   class Expression < Node
     # Generates the code equivalent to this node. May go down the AST.
     #
@@ -111,6 +114,8 @@ module Coffee
     end
   end
 
+  # Represents a Binary Operation (such as Addition, Subtraction,
+  # Multiplication, Division and Modulo) in the AST.
   class BinOp < Node
     OP_NAME = { :+ => "Addition", :- => "Subtraction", :* => "Multiplication",
                 :/ => "Division", :% => "Modulo" }
@@ -140,29 +145,59 @@ module Coffee
     end
   end
 
+  # Represents an assignment in the AST.
   class Assign < Node
+    # Value of the node
+    #
+    # @return [Object]
+    #   the value of the node
     def value
       expression
     end
 
+    # Generates the code equivalent to this node. May go down the AST.
+    #
+    # @param [Coffee::Generator] context
+    # context in which the code is to be generated
+    # @return [LLVM::Value]
+    #   the result of the code generation
     def codegen(context)
       context.assign(id.value, value.codegen(context))
     end
 
+    # String representation of this node.
+    #
+    # @return [String]
+    #   the string representation of this node
     def to_s
       "Assign(#{id.value},#{value})"
     end
   end
 
+  # Represents loading a variable in the AST.
   class Load < Node
+    # Value of the node
+    #
+    # @return [String]
+    #   the value of the node
     def value
       text_value
     end
 
+    # Generates the code equivalent to this node. May go down the AST.
+    #
+    # @param [Coffee::Generator] context
+    # context in which the code is to be generated
+    # @return [LLVM::LoadInst]
+    #   the result of the code generation
     def codegen(context)
       context.load(value)
     end
 
+    # String representation of this node.
+    #
+    # @return [String]
+    #   the string representation of this node
     def to_s
       "Load(#{value})"
     end
