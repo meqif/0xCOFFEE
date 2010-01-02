@@ -20,7 +20,7 @@ grammar Coffee
         addition
       end
     } /
-    ('λ' / '\\' / 'fun') space+ identifier space+ '->' space+ expression
+    ('λ' / '\\' / 'fun') space+ arg:identifier space+ '->' space+ body:expression <Function>
   end
 
   rule builtins
