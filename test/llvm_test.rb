@@ -137,12 +137,19 @@ class Compiler < Test::Unit::TestCase
   def test_sequence
     result = compile_test('1+1; 10*3')
     assert_equal(30, result)
+
+    result = compile_test('a = 3; b = 4; a*a/b')
+    assert_equal(2, result)
   end
 
   def test_print
     result = nil
     stfu { result = compile_test('print(10)') }
     assert_equal(3, result)
+
+    result = nil
+    stfu { result = compile_test('x = 2*2*2*2*2; print(x*4)') }
+    assert_equal(4, result)
   end
 
   def test_kaboom
