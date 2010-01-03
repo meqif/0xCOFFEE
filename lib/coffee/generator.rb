@@ -14,7 +14,7 @@ module Coffee
 
     @@anonymous_functions = 0
 
-    def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=nil)
+    def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=['argc','argv'])
       @module   = mod
       @locals   = {}
 
@@ -23,16 +23,11 @@ module Coffee
 
       arguments = @function.arguments
 
-      if (function.nil? && arg_names.nil?)
-        arguments[0].name='argc'
-        arguments[1].name='argv'
-      elsif not (function.nil? or arg_names.nil?)
-        count = 0
-        arg_names.each do |arg_name|
-          arguments[count].name = arg_name
-          assign(arg_name, arguments[count])
-          count += 1
-        end
+      count = 0
+      arg_names.each do |arg_name|
+        arguments[count].name = arg_name
+        assign(arg_name, arguments[count])
+        count += 1
       end
 
     end
