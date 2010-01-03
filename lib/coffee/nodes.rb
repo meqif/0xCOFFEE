@@ -205,7 +205,7 @@ module Coffee
 
   class Function < Node
     def codegen(context)
-      context.function(nil, [arg.text_value]) do |new_context|
+      context.function(nil, arguments) do |new_context|
         ret = body.codegen(new_context)
         new_context.return(ret)
       end
