@@ -145,6 +145,10 @@ class Compiler < Test::Unit::TestCase
     expected = "Code(Print(Subtraction(Addition(Number(2)," +
                "Multiplication(Number(-3),Number(2))),Number(1))))"
     assert_equal(expected, result)
+
+    result = parser.parse("gamma = fun a b -> a + b").to_s
+    expected = 'Code(Assign(gamma,Function(["a", "b"];Addition(Load(a),Load(b)))))'
+    assert_equal(expected, result)
   end
 
   def test_sequence

@@ -212,7 +212,7 @@ module Coffee
     end
 
     def to_s
-      "Function(#{arg.text_value};#{body})"
+      "Function(#{arguments.inspect};#{body})"
     end
   end
 
