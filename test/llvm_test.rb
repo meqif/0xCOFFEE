@@ -115,6 +115,11 @@ class Compiler < Test::Unit::TestCase
   end
 
   def test_functions
+    ['λ', '\\', 'fun'].each do |symb|
+      result = compile("#{symb} x -> x")
+      assert_equal(0, result)
+    end
+
     f1 = 'λ x -> x + x'
     result = compile(f1)
     assert_equal(0, result)
