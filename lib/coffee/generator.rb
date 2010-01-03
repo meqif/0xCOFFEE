@@ -12,7 +12,7 @@ module Coffee
                         :* => Instruction::Mul, :/ => Instruction::SDiv,
                         :% => Instruction::SRem }
 
-    @@anonymous_functions = 0
+    @@anonymous_functions = -1
 
     def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=['argc','argv'])
       @module   = mod
@@ -65,16 +65,9 @@ module Coffee
       @entry_block.load(@locals[name])
     end
 
-    def function(name)
-      func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, []))
-      generator = Generator.new(@module, func)
-      yield generator
-      func
-    end
-
-    def function2(args=[])
-      func = @module.get_or_insert_function("_f#{@@anonymous_functions}", Type.function(NATIVE_INT, [NATIVE_INT]))
-      @@anonymous_functions += 1
+    def function(name, args)
+      name ||= "_f#{@@anonymous_functions += 1}"
+      func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, args.map {NATIVE_INT} ))
       generator = Generator.new(@module, func, args)
       yield generator
       func
