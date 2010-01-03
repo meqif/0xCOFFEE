@@ -3,6 +3,15 @@ require "llvm"
 
 module Coffee
   class Generator
+
+    class << self
+      attr_accessor :anonymous_functions
+
+      def anonymous_functions
+        @anonymous_functions ||= -1
+      end
+    end
+
     include LLVM
 
     PCHAR      = Type.pointer(Type::Int8Ty)
@@ -11,8 +20,6 @@ module Coffee
     OP_INSTRUCTIONS = { :+ => Instruction::Add, :- => Instruction::Sub,
                         :* => Instruction::Mul, :/ => Instruction::SDiv,
                         :% => Instruction::SRem }
-
-    @@anonymous_functions = -1
 
     def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=['argc','argv'])
       @module   = mod
@@ -66,7 +73,7 @@ module Coffee
     end
 
     def function(name, args)
-      name ||= "_f#{@@anonymous_functions += 1}"
+      name ||= "_f#{self.class.anonymous_functions += 1}"
       func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, args.map {NATIVE_INT} ))
       generator = Generator.new(@module, func, args)
       yield generator
