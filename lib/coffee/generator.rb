@@ -70,6 +70,7 @@ module Coffee
       func = @module.get_or_insert_function(name, Type.function(NATIVE_INT, args.map {NATIVE_INT} ))
       generator = Generator.new(@module, func, args)
       yield generator
+      raise RuntimeError unless function_terminated? func
       func
     end
 
@@ -88,7 +89,7 @@ module Coffee
     end
 
     def is_terminated?
-      @function.get_basic_block_list[0].get_instruction_list[-1].class == LLVM::ReturnInst
+      function_terminated? @function
     end
 
     # Writes generated LLVM-IR to a file.
@@ -135,6 +136,10 @@ module Coffee
         else
           TYPE_MAPPING[value.type.to_s.to_sym]
         end
+      end
+
+      def function_terminated?(function)
+        function.get_basic_block_list[0].get_instruction_list[-1].class == LLVM::ReturnInst
       end
   end
 end
