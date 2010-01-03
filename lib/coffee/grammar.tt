@@ -15,12 +15,12 @@ grammar Coffee
   end
 
   rule expression
+    ('λ' / '\\' / 'fun') space+ arg:[a-z] space+ '->' space+ body:expression <Function> /
     space* addition space* <Expression> {
       def value
         addition
       end
-    } /
-    ('λ' / '\\' / 'fun') space+ arg:identifier space+ '->' space+ body:expression <Function>
+    }
   end
 
   rule builtins
