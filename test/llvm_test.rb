@@ -130,6 +130,9 @@ class Compiler < Test::Unit::TestCase
 
     result = compile('fun x y -> x * y')
     assert_equal(0, result)
+
+    result = compile("gamma = fun a b -> a + b")
+    assert_equal(0, result)
   end
 
   def test_string_ast
