@@ -127,6 +127,9 @@ class Compiler < Test::Unit::TestCase
     f2 = "(#{f1})"
     result = compile(f2)
     assert_equal(0, result)
+
+    result = compile('fun x y -> x * y')
+    assert_equal(0, result)
   end
 
   def test_string_ast
