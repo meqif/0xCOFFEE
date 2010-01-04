@@ -15,7 +15,7 @@ grammar Coffee
   end
 
   rule expression
-    ('λ' / '\\' / 'fun') args:(space+ arg:identifier)+ space+ '->' space+ body:expression <Function> {
+    fun_keyword args:(space+ arg:identifier)+ space+ '->' space+ body:expression <Function> {
       def arguments
         args.elements.map {|a| a.arg.text_value }
       end
@@ -49,7 +49,7 @@ grammar Coffee
       end
     } /
     number /
-    [a-zA-Z] [\w]* <Load>
+    !fun_keyword [a-zA-Z] [\w]* <Load>
   end
 
   rule number
@@ -58,7 +58,11 @@ grammar Coffee
   end
 
   rule identifier
-    [a-zA-Z] [\w]*
+    !fun_keyword [a-zA-Z] [\w]*
+  end
+
+  rule fun_keyword
+    ('λ' / '\\' / 'fun')
   end
 
   rule space
