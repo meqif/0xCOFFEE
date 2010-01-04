@@ -56,7 +56,11 @@ module Coffee
     end
 
     def call(func, *args)
-      fun = @module.get_function(func)
+      begin
+        fun = @module.get_function(func)
+      rescue RuntimeError
+        fun = load(func)
+      end
       @entry_block.call(fun, *args)
     end
 

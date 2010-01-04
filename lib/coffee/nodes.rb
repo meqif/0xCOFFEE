@@ -216,6 +216,16 @@ module Coffee
     end
   end
 
+  class Call < Node
+    def codegen(context)
+      context.call(fname.value, *arguments)
+    end
+
+    def to_s
+      "Call(#{fname.value})"
+    end
+  end
+
   # A +Number+ represents a number in the Abstract Syntax Tree.
   class Number < Node
     # Value of the node

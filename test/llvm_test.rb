@@ -136,6 +136,14 @@ class Compiler < Test::Unit::TestCase
 
     result = compile("fun alpha beta -> alpha + beta")
     assert_equal(0, result)
+
+    result = compile('fun -> 1337')
+    assert_equal(0, result)
+  end
+
+  def test_call
+    result = compile_test('gamma = fun -> 1337; gamma ()')
+    assert_equal(1337, result)
   end
 
   def test_string_ast

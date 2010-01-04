@@ -15,7 +15,12 @@ grammar Coffee
   end
 
   rule expression
-    fun_keyword args:(space+ arg:identifier)+ space+ '->' space+ body:expression <Function> {
+    fname:identifier space* '(' ')' <Call> {
+      def arguments
+        []
+      end
+    } /
+    fun_keyword args:(space+ arg:identifier)* space+ '->' space+ body:expression <Function> {
       def arguments
         args.elements.map {|a| a.arg.text_value }
       end
