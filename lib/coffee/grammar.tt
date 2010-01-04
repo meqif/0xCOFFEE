@@ -15,7 +15,7 @@ grammar Coffee
   end
 
   rule expression
-    ('λ' / '\\' / 'fun') args:(space+ arg:[a-z])+ space+ '->' space+ body:expression <Function> {
+    ('λ' / '\\' / 'fun') args:(space+ arg:identifier)+ space+ '->' space+ body:expression <Function> {
       def arguments
         args.elements.map {|a| a.arg.text_value }
       end
