@@ -218,6 +218,7 @@ module Coffee
 
   class Call < Node
     def codegen(context)
+      arguments.map! {|x| x.codegen(context)}
       context.call(fname.value, *arguments)
     end
 

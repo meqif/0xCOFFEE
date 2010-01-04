@@ -15,9 +15,18 @@ grammar Coffee
   end
 
   rule expression
-    fname:identifier space* '(' ')' <Call> {
+    fname:identifier space* '(' args:(expression)* ')' <Call> {
       def arguments
-        []
+        if args.elements.nil?
+          []
+        else
+          args.elements
+        end
+      end
+    } /
+    fname:identifier space+ args:(expression)+ <Call> {
+      def arguments
+        args.elements
       end
     } /
     fun_keyword args:(space+ arg:identifier)* space+ '->' space+ body:expression <Function> {

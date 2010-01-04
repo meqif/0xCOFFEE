@@ -144,6 +144,12 @@ class Compiler < Test::Unit::TestCase
   def test_call
     result = compile_test('gamma = fun -> 1337; gamma ()')
     assert_equal(1337, result)
+
+    result = compile_test('sum = fun a b -> a + b; sum 1 2')
+    assert_equal(3, result)
+
+    result = compile_test('sum = fun a b -> a + b; sum(23 45)')
+    assert_equal(68, result)
   end
 
   def test_string_ast
