@@ -1,6 +1,27 @@
 require "rubygems"
 require "llvm"
 
+module LLVM
+  PCHAR      = Type.pointer(Type::Int8Ty)
+  INT        = Type::Int32Ty
+  NATIVE_INT = MACHINE_WORD
+
+  TYPE_MAPPING = { Type.pointer(PCHAR).to_s.to_sym => Type.pointer(PCHAR),
+                   PCHAR.to_s.to_sym => PCHAR,
+                   NATIVE_INT.to_s.to_sym => NATIVE_INT }
+
+  def value_type(value)
+    if value.class == LLVM::Function
+      sig = value.type.to_s.partition(' ')
+      ret = TYPE_MAPPING[sig.first.to_sym]
+      args = sig.last.match(/(\w+)/).to_a.map {|type| TYPE_MAPPING[type.to_sym] }
+      type = Type.pointer(Type.function(ret, args))
+    else
+      TYPE_MAPPING[value.type.to_s.to_sym]
+    end
+  end
+end
+
 module Coffee
   class Generator
 
@@ -14,9 +35,6 @@ module Coffee
 
     include LLVM
 
-    PCHAR      = Type.pointer(Type::Int8Ty)
-    INT        = Type::Int32Ty
-    NATIVE_INT = MACHINE_WORD
     OP_INSTRUCTIONS = { :+ => Instruction::Add, :- => Instruction::Sub,
                         :* => Instruction::Mul, :/ => Instruction::SDiv,
                         :% => Instruction::SRem }
@@ -133,20 +151,6 @@ module Coffee
         @module.external_function("puts", Type.function(INT, [PCHAR]))
         @module.external_function("read", Type.function(INT, [INT, PCHAR, INT]))
         @module.external_function("exit", Type.function(INT, [INT]))
-      end
-
-      TYPE_MAPPING = { Type.pointer(PCHAR).to_s.to_sym => Type.pointer(PCHAR),
-                       PCHAR.to_s.to_sym => PCHAR,
-                       NATIVE_INT.to_s.to_sym => NATIVE_INT }
-      def value_type(value)
-        if value.class == LLVM::Function
-          sig = value.type.to_s.partition(' ')
-          ret = TYPE_MAPPING[sig.first.to_sym]
-          args = sig.last.match(/(\w+)/).to_a.map {|type| TYPE_MAPPING[type.to_sym] }
-          type = Type.pointer(Type.function(ret, args))
-        else
-          TYPE_MAPPING[value.type.to_s.to_sym]
-        end
       end
 
       def function_terminated?(function)
