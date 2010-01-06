@@ -223,7 +223,7 @@ module Coffee
     end
 
     def to_s
-      "Call(#{fname.value})"
+      "Call(#{fname.value},[#{arguments.join(',')}])"
     end
   end
 

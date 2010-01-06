@@ -166,8 +166,8 @@ class Compiler < Test::Unit::TestCase
                "Multiplication(Number(-3),Number(2))),Number(1))))"
     assert_equal(expected, result)
 
-    result = parser.parse("gamma = fun a b -> a + b").to_s
-    expected = 'Code(Assign(gamma,Function(["a", "b"];Addition(Load(a),Load(b)))))'
+    result = parser.parse("sum = fun a b -> a + b; sum 1 2").to_s
+    expected = 'Code(Assign(sum,Function(["a", "b"];Addition(Load(a),Load(b)))),Call(sum,[Number(1),Number(2)]))'
     assert_equal(expected, result)
   end
 
