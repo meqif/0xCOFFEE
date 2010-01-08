@@ -9,10 +9,10 @@ grammar Coffee
   end
 
   rule statement
-    'if' space+ condition:expression space+ 'then' space+ trueBody:statement space+ 'end' /
-    'if' space+ condition:expression space+ 'then' space+ trueBody:statement space+ 'else' space+ falseBody:statement space+ 'end' /
+    'if' space+ cond:condition space+ 'then' space+ trueBody:statement space+ 'end' <IfElse> /
+    'if' space+ cond:condition space+ 'then' space+ trueBody:statement space+ 'else' space+ falseBody:statement space+ 'end' <IfElse> /
     builtins /
-    id:identifier space* '=' space* expression <Assign> /
+    assign /
     expression
   end
 
@@ -41,6 +41,14 @@ grammar Coffee
         addition
       end
     }
+  end
+
+  rule condition
+    left:primary space* '==' space* right:primary <Comparison>
+  end
+
+  rule assign
+    id:identifier space* '=' space* expression <Assign>
   end
 
   rule builtins
@@ -74,7 +82,7 @@ grammar Coffee
   end
 
   rule identifier
-    !fun_keyword [a-zA-Z] [\w]*
+    !fun_keyword !('if'/'then'/'else'/'end') [a-zA-Z] [\w]*
   end
 
   rule fun_keyword

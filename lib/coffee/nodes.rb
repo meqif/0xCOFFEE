@@ -227,6 +227,53 @@ module Coffee
     end
   end
 
+  class IfElse < Node
+    def codegen(context)
+      b = context.current_block.builder
+
+      # create code for condition checking
+      cmp = cond.codegen(context)
+
+      trueBlock    = context.new_block
+      falseBlock   = context.new_block
+      returnBlock  = context.new_block
+
+      # create code for conditional jumping to the correct block
+      b.cond_br(cmp, trueBlock, falseBlock)
+
+      # create true branch block and generate code
+      context.current_block = trueBlock
+      trueBody.codegen(context)
+      context.current_block.builder.br(returnBlock)
+
+      # create false branch block and generate code
+      context.current_block = falseBlock
+      falseBody.codegen(context) if defined? falseBody
+      context.current_block.builder.br(returnBlock)
+
+      context.current_block = returnBlock
+    end
+
+    def to_s
+      if defined? falseBody
+        "IfElse(#{cond},#{trueBody},#{falseBody})"
+      else
+        "IfElse(#{cond},#{trueBody})"
+      end
+    end
+  end
+
+  class Comparison < Node
+    def codegen(context)
+      b = context.current_block.builder
+      b.icmp_eq(left.codegen(context), right.codegen(context))
+    end
+
+    def to_s
+      "Equal(#{left},#{right})"
+    end
+  end
+
   # A +Number+ represents a number in the Abstract Syntax Tree.
   class Number < Node
     # Value of the node

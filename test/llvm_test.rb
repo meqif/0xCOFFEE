@@ -110,6 +110,9 @@ class Compiler < Test::Unit::TestCase
     result = compile_test('a = 1+2*3; a')
     assert_equal(7, result)
 
+    result = compile_test('a = 1; a = 2; a = 3; a')
+    assert_equal(3, result)
+
     result = parser.parse('a = 1; a').to_s
     assert_equal("Code(Assign(a,Number(1)),Load(a))", result)
   end
@@ -155,6 +158,17 @@ class Compiler < Test::Unit::TestCase
     #assert_equal(2674, result)
   end
 
+  def test_ifelse
+    result = stfu { compile('if 1 == 1 then print(1337) else print(666) end') }
+    assert_equal(0, result)
+
+    result = stfu { compile('if 1 == 1 then print(12345) end') }
+    assert_equal(0, result)
+
+    result = compile_test('x = 0; if 1 == 1 then x = 1337 end; x')
+    assert_equal(1337, result)
+  end
+
   def test_string_ast
     result = parser.parse('((10*8)/4)%15').to_s
     expected = "Code(Modulo(Division(Multiplication(Number(10),Number(8))," +
@@ -175,7 +189,7 @@ class Compiler < Test::Unit::TestCase
     result = compile_test('1+1; 10*3')
     assert_equal(30, result)
 
-    result = compile_test('a = 3; b = 4; a*a/b')
+    result = compile_test("a = 3\nb = 4\na*a/b")
     assert_equal(2, result)
   end
 

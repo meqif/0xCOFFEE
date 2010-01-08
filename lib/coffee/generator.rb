@@ -21,12 +21,14 @@ module Coffee
                         :* => Instruction::Mul, :/ => Instruction::SDiv,
                         :% => Instruction::SRem }
 
+    attr_accessor :current_block
+
     def initialize(mod = LLVM::Module.new("coffee"), function=nil, arg_names=['argc','argv'])
       @module   = mod
       @locals   = {}
 
       @function = function || @module.get_or_insert_function("main", Type.function(NATIVE_INT, [NATIVE_INT, Type.pointer(PCHAR)]))
-      @entry_block = @function.create_block.builder
+      @current_block = @function.create_block
 
       arguments = @function.arguments
 
@@ -40,15 +42,19 @@ module Coffee
     end
 
     def bin_op(op, left, right)
-      @entry_block.bin_op(OP_INSTRUCTIONS[op], left, right)
+      @current_block.builder.bin_op(OP_INSTRUCTIONS[op], left, right)
     end
 
     def preamble
       define_external_functions
     end
 
+    def new_block
+      @current_block = @function.create_block
+    end
+
     def new_string(value)
-      @entry_block.create_global_string_ptr(value)
+      @current_block.builder.create_global_string_ptr(value)
     end
 
     def new_number(value)
@@ -61,19 +67,23 @@ module Coffee
       rescue RuntimeError
         fun = load(func)
       end
-      @entry_block.call(fun, *args)
+      @current_block.builder.call(fun, *args)
     end
 
     def assign(name, value)
       raise RuntimeError if name.nil?
-      ptr = @entry_block.alloca(value_type(value), 0)
-      ptr.name = name
-      @entry_block.store(value, ptr)
+      if @locals[name].nil?
+        ptr = @current_block.builder.alloca(value_type(value), 0)
+        ptr.name = name
+      else
+        ptr = @locals[name]
+      end
+      @current_block.builder.store(value, ptr)
       @locals[name] = ptr
     end
 
     def load(name)
-      @entry_block.load(@locals[name])
+      @current_block.builder.load(@locals[name])
     end
 
     def function(name, args)
@@ -85,9 +95,10 @@ module Coffee
       func
     end
 
+
     def return(value)
       raise RuntimeError unless value.type.type_id == @function.return_type.type_id
-      @entry_block.return(value)
+      @function.get_basic_block_list.last.builder.return(value)
     end
 
     def optimize
@@ -150,7 +161,7 @@ module Coffee
       end
 
       def function_terminated?(function)
-        function.get_basic_block_list[0].get_instruction_list[-1].class == LLVM::ReturnInst
+        function.get_basic_block_list[-1].get_instruction_list[-1].class == LLVM::ReturnInst
       end
   end
 end
