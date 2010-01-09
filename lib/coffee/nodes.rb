@@ -147,14 +147,6 @@ module Coffee
 
   # Represents an assignment in the AST.
   class Assign < Node
-    # Value of the node
-    #
-    # @return [Object]
-    #   the value of the node
-    def value
-      expression
-    end
-
     # Generates the code equivalent to this node. May go down the AST.
     #
     # @param [Coffee::Generator] context

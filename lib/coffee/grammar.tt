@@ -48,7 +48,7 @@ grammar Coffee
   end
 
   rule assign
-    id:identifier space* '=' space* expression <Assign>
+    id:identifier space* '=' space* value:expression <Assign>
   end
 
   rule builtins
