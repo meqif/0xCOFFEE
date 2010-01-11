@@ -47,4 +47,4 @@ SEE ALSO
 COPYRIGHT
 ---------
 
-0xCOFFEE &copy; 2009 by Ricardo Martins. Licensed under the MIT license. Please see the {file:LICENSE} for more information.
+0xCOFFEE &copy; 2009-2010 by Ricardo Martins. Licensed under the MIT license. Please see the {file:LICENSE} for more information.

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-# (C)opyright 2009 Ricardo Martins <ricardo at scarybox dot net>
+# (C)opyright 2009-2010 Ricardo Martins <ricardo at scarybox dot net>
 # Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 $:.unshift File.dirname(__FILE__) + "/../lib"
