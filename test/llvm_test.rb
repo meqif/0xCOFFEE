@@ -183,6 +183,14 @@ class Compiler < Test::Unit::TestCase
     result = parser.parse("sum = fun a b -> a + b; sum 1 2").to_s
     expected = 'Code(Assign(sum,Function(["a", "b"];Addition(Load(a),Load(b)))),Call(sum,[Number(1),Number(2)]))'
     assert_equal(expected, result)
+
+    result = parser.parse('if 1 == 1 then print(1337) else print(666) end').to_s
+    expected = "Code(IfElse(Equal(Number(1),Number(1)),Print(Number(1337)),Print(Number(666))))"
+    assert_equal(expected, result)
+
+    result = parser.parse('if 1 == 1 then print(12345) end').to_s
+    expected = "Code(IfElse(Equal(Number(1),Number(1)),Print(Number(12345))))"
+    assert_equal(expected, result)
   end
 
   def test_sequence
